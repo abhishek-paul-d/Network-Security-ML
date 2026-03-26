@@ -15,7 +15,7 @@ def read_yaml_file(file_path: str)-> dict:
     except Exception as e:
         raise NetworkSecurityException(e,sys)
     
-def write_yaml_file(file_path: str, content: object, replace: bool = False):
+def write_yaml_file(file_path: str, content: object, replace: bool = False)->None:
     try:
         if replace:
             if os.path.exists(file_path):
@@ -26,3 +26,25 @@ def write_yaml_file(file_path: str, content: object, replace: bool = False):
 
     except Exception as e:
         raise NetworkSecurityException(e,sys)
+
+def save_numpy_array_data(file_path: str, array: np.array)->None:
+    try:
+        dir_path=os.path.dirname(file_path)
+        os.makedirs(dir_path,exist_ok=True)
+        with open(file_path,"wb") as file_obj:
+            np.save(file_obj,array)
+        
+    except Exception as e:
+        raise NetworkSecurityException(e,sys)
+    
+def save_object(file_path: str, obj: object)->None:
+    try:
+        logging.info("Entered save_object method of main_utils class")
+        os.makedirs(os.path.dirname(file_path),exist_ok=True)
+        with open(file_path,"wb") as file_obj:
+            pickle.dump(obj,file_obj)
+        logging.info("Exited the save_object method of main_utils class")
+
+    except Exception as e:
+        raise NetworkSecurityException(e,sys)
+
