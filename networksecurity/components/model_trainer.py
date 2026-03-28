@@ -1,5 +1,6 @@
 import os 
 import sys
+import mlflow
 
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
@@ -25,6 +26,23 @@ class Model_Trainer:
             self.data_transformation_artifact=data_transformation_artifact
         except Exception as e:
             raise Exception(e,sys)
+
+    def track_mlflow(self,best_model,classification_metric):
+        try:
+            with mlflow.start_run():
+                f1_score=classification_metric.f1_score
+                precision_score=classification_metric.precision_score
+                recall_score=classification_metric.recall_score
+
+                mlflow.log_metric("f1_score",f1_score)
+                mlflow.log_metric("precision_score",precision_score)
+                mlflow.log_metric("recall_score",recall_score)
+                mlflow.sklearn.log_model(best_model,"Model")
+
+        
+        
+        except Exception as e:
+            raise NetworkSecurityException(e,sys)
         
     def train_model(self,X_train,y_train,X_test,y_test):
         try:
@@ -71,20 +89,24 @@ class Model_Trainer:
             ]
 
             best_model=models[best_model_name]
-
+            best_model.fit(X_train, y_train)
+            
             y_train_pred=best_model.predict(X_train)
             classification_train_metric=get_classification_score(y_true=y_train,y_pred=y_train_pred)
+            ## Tracking using Mlflo
+            self.track_mlflow(best_model,classification_train_metric)
 
             y_test_pred=best_model.predict(X_test)
-            
             classification_test_metric=get_classification_score(y_true=y_test,y_pred=y_test_pred)
+            ## Tracking using Mlflow
+            self.track_mlflow(best_model,classification_test_metric)
 
             preprocessor = load_object(file_path=self.data_transformation_artifact.transformed_object_file_path)
             model_dir_path = os.path.dirname(self.model_trainer_config.trained_model_file_path)
             os.makedirs(model_dir_path,exist_ok=True)
 
             Network_Model=NetworkModel(preprocessor=preprocessor,model=best_model)
-            save_object(self.model_trainer_config.trained_model_file_path,obj=NetworkModel)
+            save_object(self.model_trainer_config.trained_model_file_path,obj=Network_Model)
 
             model_trainer_artifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,
                                                         train_metric_artifact=classification_train_metric,
@@ -92,8 +114,6 @@ class Model_Trainer:
                                                         )
             logging.info(f"Model Trainer Artifact: {model_trainer_artifact}")
             return model_trainer_artifact
-
-            ## track Mlflow
 
         except Exception as e:
             raise NetworkSecurityException(e,sys)

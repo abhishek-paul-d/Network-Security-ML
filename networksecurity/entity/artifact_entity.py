@@ -32,4 +32,4 @@ class ModelTrainerArtifact:
 class ClassificationMetricArtifact:
     f1_score: float
     precision_score: float
-    accuracy_score: float
+    recall_score: float
