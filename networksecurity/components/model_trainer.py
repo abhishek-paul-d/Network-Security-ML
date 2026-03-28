@@ -19,6 +19,9 @@ from sklearn.ensemble import (
 )
 from sklearn.linear_model import LogisticRegression
 
+import dagshub
+dagshub.init(repo_owner='abhishek-paul-d', repo_name='Network-Security-ML', mlflow=True)
+
 class Model_Trainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,data_transformation_artifact:DataTransformationArtifact):
         try: 
