@@ -91,7 +91,7 @@ class TrainingPipeline:
 
     def sync_saved_model_dir_to_s3(self):
         try:
-            aws_bucker_url=f"s3://{TRAINING_BUCKET_NAME}/artifact/{self.training_pipeline_config.timestamp}"
+            aws_bucker_url=f"s3://{TRAINING_BUCKET_NAME}/final_models/{self.training_pipeline_config.timestamp}"
             self.s3_sync.sync_folder_to_s3(folder=self.training_pipeline_config.model_dir,aws_bucket_url=aws_bucker_url)
         except Exception as e:
             raise NetworkSecurityException(e,sys)
