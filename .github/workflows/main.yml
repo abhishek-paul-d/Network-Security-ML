@@ -7,7 +7,7 @@ on:
             - README.md
 
 jobs:
-    integration:
+    Continous-Integration:
         name: Continous Integration
         runs-on: ubuntu-latest
 
@@ -29,8 +29,8 @@ jobs:
           run: echo "Running tests..."
 
     build-and-push-ecr-image:
-        name: Continous Delivery
-        needs: integration
+        name: Continous-Delivery
+        needs: Continous-Integration
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Code
@@ -67,7 +67,35 @@ jobs:
 
                 echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
+    Continous_Deployment:
+        name: Continous Deployment
+        needs: build-and-push-ecr-image
+        runs-on: self-hosted
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v3
 
-
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: ${{ secrets.AWS_REGION }}
+            
+            - name: Login to Amazon ECR
+              id: login-ecr
+              uses: aws-actions/amazon-ecr-login@v1
+            
+            - name: Pull latest Images
+              run: |
+                docker pull ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+            
+            - name: Run Docker Image 
+              run: |
+                docker run -d -p 8080:8080 --ipc="host" --name=networksecurity -e 'AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}' -e 'AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}' -e 'AWS_REGION=${{ secrets.AWS_REGION }}'  ${{secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest 
+           
+            - name: Clean Previous Docker Images and Containers
+              run: |
+                docker system prune -f
 
         
