@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "bs4>=0.0.2",
     "certifi==2026.2.25",
     "dagshub>=0.6.9",
     "fastapi>=0.135.2",
@@ -14,7 +15,10 @@ dependencies = [
     "pyaml==26.2.1",
     "pymongo[srv]==3.11",
     "python-dotenv==1.2.2",
+    "python-whois>=0.9.6",
     "scikit-learn==1.8.0",
     "setuptools==82.0.1",
+    "streamlit>=1.55.0",
     "uvicorn>=0.42.0",
+    "whois>=1.20240129.2",
 ]
