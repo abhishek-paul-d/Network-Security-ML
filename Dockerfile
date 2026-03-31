@@ -7,7 +7,7 @@ RUN apt update -y && apt upgrade -y && apt install -y curl && \
     curl -LsSf https://astral.sh/uv/install.sh | sh && \
     apt remove -y curl && apt autoremove -y && apt clean && rm -rf /var/lib/apt/lists/*
 
-ENV PATH="/root/.cargo/bin:$PATH"
+ENV PATH="/root/.local/bin:$PATH"
 
 RUN uv pip install --system -r requirements.txt awscli
 
