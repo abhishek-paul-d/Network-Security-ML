@@ -1,0 +1,30 @@
+name: Workflow
+
+on:
+    push:
+        branches: [ main ]
+        paths-ignore:
+            - README.md
+
+jobs:
+    integration:
+        name: Continous Integration
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python 3.11
+          uses: actions/setup-python@v2
+
+        - name: Checkout Code
+          uses: actions/checkout@v2
+    
+        - name: Install dependencies
+          run: echo "Installing dependencies..." && pip install -r requirements.txt
+
+        - name: Lint code
+          run: echo "Linting code..." && flake8 .
+        - name: Run tests
+          run: echo "Running tests..." && pytest -v
+
+        
