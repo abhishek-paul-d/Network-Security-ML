@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="Screenshot 2026-03-31 191425" src="https://github.com/user-attachments/assets/59822f3e-7ae1-4cd7-a778-21ece96ea606" /># MLOps Solution for Network Security in Malicious URL Detection
+# MLOps Solution for Network Security in Malicious URL Detection
 
 A comprehensive, end-to-end MLOps solution designed to detect and classify malicious URLs, ensuring user safety by identifying harmful links through machine learning. The solution integrates data ingestion, model training, deployment, and continuous monitoring — delivering both real-time and batch URL safety assessments through an automated, scalable approach to web security.
 
@@ -113,8 +113,8 @@ The dataset contains **30 features** extracted from URLs to classify them as **M
 
 ### 1. Frontend — Streamlit
 
-<img width="1920" height="1080" alt="Screenshot 2026-03-31 191346" src="https://github.com/user-attachments/assets/9a2b92e3-c9b3-42ba-b3f0-aa9b02860e34" />
-<img width="1920" height="1080" alt="Screenshot 2026-03-29 170654" src="https://github.com/user-attachments/assets/eb7333d8-5edc-49d4-8fc4-896085ffc258" />
+<img width="1920" height="1080" alt="Screenshot 2026-03-29 170644" src="https://github.com/user-attachments/assets/87ee6a1c-e4a8-486c-853a-a6501ed5e210" />
+
 
 The Streamlit app provides an intuitive interface for predicting individual URLs as **Malicious**, **Suspicious**, or **Safe**.
 
