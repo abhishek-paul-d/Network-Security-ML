@@ -181,7 +181,7 @@ Every code update triggers automated workflows for testing, building, and deploy
 
 - **Self-Hosted Runner** on AWS EC2:
 
-|-------|------------|
+<img width="1920" height="1080" alt="Screenshot 2026-03-31 213429" src="https://github.com/user-attachments/assets/1ebd6879-5043-42f1-86ae-fdcf5f831c52" />
 
 ---
 
