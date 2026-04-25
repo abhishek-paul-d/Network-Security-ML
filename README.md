@@ -133,16 +133,17 @@ FastAPI handles model operations including training and batch predictions.
 
 **AWS S3 Buckets:**
 
-![Uploading Screenshot 2026-03-31 191346.png…]()
+<img width="1920" height="1080" alt="Screenshot 2026-03-31 191346" src="https://github.com/user-attachments/assets/21945506-7b06-4e23-a7a7-e83e786654d9" />
 
-![Uploading Screenshot 2026-03-31 191409.png…]()
+
+<img width="1920" height="1080" alt="Screenshot 2026-03-31 191409" src="https://github.com/user-attachments/assets/27444bc4-109c-4bff-9ec3-0551c515fef9" />
+
 
 <img width="1920" height="1080" alt="Screenshot 2026-03-31 191425" src="https://github.com/user-attachments/assets/e145d43e-ab4a-4a1b-94d3-c5383d6eaa56" />
 
+<img width="1920" height="1080" alt="Screenshot 2026-03-31 191441" src="https://github.com/user-attachments/assets/860ba5d3-b158-4373-8ed6-c8a566fd1d2e" />
 
 - `networksecurity3` — Stores artifacts, `model.pkl`, and `preprocessor.pkl`.
-
-- `my-network-datasource-neeraj` — Stores CSV files uploaded via the `/predict` route.
 
 ---
 
