@@ -1,139 +1,109 @@
-# MLOps Solution for Network Security in Malicious URL Detection
+<img width="1920" height="1080" alt="Screenshot 2026-03-31 191425" src="https://github.com/user-attachments/assets/59822f3e-7ae1-4cd7-a778-21ece96ea606" /># MLOps Solution for Network Security in Malicious URL Detection
 
-This project delivers a production-grade MLOps solution for detecting and classifying malicious URLs using machine learning. It is designed as a scalable and automated system that integrates data ingestion, validation, model training, deployment, and monitoring into a unified pipeline.
-
-The system supports both real-time and batch predictions, enabling organizations to proactively identify harmful URLs and mitigate cybersecurity risks. By combining modern MLOps practices with cloud infrastructure, this project demonstrates how machine learning systems can be reliably deployed and maintained in real-world environments.
+A comprehensive, end-to-end MLOps solution designed to detect and classify malicious URLs, ensuring user safety by identifying harmful links through machine learning. The solution integrates data ingestion, model training, deployment, and continuous monitoring — delivering both real-time and batch URL safety assessments through an automated, scalable approach to web security.
 
 ---
 
 ## Introduction
 
-Malicious URLs are widely used in phishing attacks, malware distribution, and social engineering campaigns. These attacks can lead to data breaches, financial loss, and compromised systems.
+Malicious URLs are commonly used by cybercriminals in phishing attacks, social engineering schemes, and malware distribution, posing significant risks to individuals and organizations. This project leverages machine learning to identify and classify harmful links, enabling timely interventions and improved web security.
 
-This project aims to solve this problem by building an intelligent URL classification system powered by machine learning. The system analyzes various structural and behavioral features of URLs to determine whether they are Safe, Suspicious, or Malicious.
-
-Unlike a simple ML model, this project focuses on the **complete lifecycle of a machine learning system**, including:
-
-- Automated data ingestion and validation  
-- Feature engineering and preprocessing  
-- Model training with hyperparameter tuning  
-- Experiment tracking and model versioning  
-- Continuous retraining using orchestration tools  
-- Scalable deployment using containerization and cloud services  
-
-This makes the project a strong example of a **real-world MLOps implementation** rather than just a standalone model.
-
----
+The pipeline supports both **real-time single URL predictions** via an interactive UI and **batch predictions** through a robust API backend.
 
 ## Architecture
-![Architecture](_assets/network_architecture.gif)
-
-The architecture follows a modular and scalable design:
-
-- Data flows from MongoDB into the processing pipeline  
-- Airflow orchestrates training and prediction workflows  
-- Models and artifacts are stored in AWS S3  
-- MLflow tracks experiments and model performance  
-- FastAPI serves backend APIs  
-- Streamlit provides a user-facing interface  
-- Docker ensures consistent environments  
-- GitHub Actions automates CI/CD pipelines  
 
 ---
 
 ## Tech Stack 🛠️
 
-| Category         | Tools/Technologies    | Description                                                                 |
-|------------------|-----------------------|-----------------------------------------------------------------------------|
-| Frontend         | Streamlit             | Provides an intuitive UI for real-time predictions                          |
-| Backend          | FastAPI               | Exposes APIs for training and batch predictions                             |
-| Modeling         | Scikit-learn, Python  | Implements machine learning algorithms and preprocessing pipelines          |
-| Database         | MongoDB               | Stores raw and processed data                                               |
-| Orchestration    | Apache Airflow        | Schedules and manages ML pipelines                                          |
-| Experiment Tracking| MLflow             | Tracks experiments, metrics, and model versions                             |
-| CI/CD            | GitHub Actions        | Automates testing, building, and deployment                                 |
-| Containerization | Docker, AWS ECR       | Packages application for consistent deployment                              |
-| Cloud Storage    | AWS S3                | Stores models, datasets, and artifacts                                      |
-| Cloud Hosting    | AWS EC2               | Hosts application and CI/CD runners                                         |
+| Category               | Tools / Technologies              | Description                                                                                   |
+|------------------------|-----------------------------------|-----------------------------------------------------------------------------------------------|
+| **Frontend**           | Streamlit                         | Interactive UI for real-time single URL predictions                                           |
+| **Backend**            | FastAPI                           | Handles batch predictions and API endpoints                                                   |
+| **Modeling**           | RandomForestClassifier, Python    | Machine learning model for detecting malicious URLs                                           |
+| **Database**           | MongoDB                           | Stores data records for ingestion and model training                                          |
+| **Experiment Tracking**| MLflow                            | Tracks model metrics (F1-score, Precision, Recall); artifacts stored in AWS S3 on AWS EC2    |
+| **CI/CD**              | GitHub Actions                    | Automates CI/CD pipelines including Docker build and deployment                               |
+| **Containerization**   | Docker, AWS ECR                   | Docker images stored securely in ECR for consistent deployment                                |
+| **Cloud Storage**      | AWS S3                            | Stores artifacts, trained models, and logs                                                    |
+| **Cloud Hosting**      | AWS EC2                           | Serves as self-hosted runner for GitHub Actions and hosts the application                     |
 
 ---
 
-# Project Highlights 🌟
+## Project Highlights 🌟
 
-## ML Pipeline & Monitoring
+### ML Pipeline & Monitoring
 
-- **End-to-End MLOps Pipeline**  
-  The project implements a complete ML lifecycle pipeline, starting from raw data ingestion to final model deployment. Each stage is modular, reusable, and automated.
+- **End-to-End MLOps Pipeline** — Seamless integration from data ingestion to deployment with fully automated workflows.
+- **Real-time Single URL Predictions** — Instant safety assessments on individual URLs via a **Streamlit** app.
+- **Batch Predictions for Large Datasets** — Efficiently process multiple URLs at once using **FastAPI**.
+- **Comprehensive Metrics Tracking** — All experiments logged and tracked with **MLflow on AWS**, providing a centralized dashboard for performance comparison.
 
-- **Real-time Single URL Predictions**  
-  Users can interact with the system via a Streamlit UI to classify URLs instantly. This demonstrates how ML models can be exposed to end-users in an accessible way.
+### Infrastructure & Deployment
 
-- **Batch Predictions for Large Datasets**  
-  FastAPI enables users to upload CSV files containing multiple URLs, making the system suitable for enterprise-scale analysis.
+- **Containerized with Docker** — Consistent environments from development to production.
+- **Artifact & Model Storage** — Models, artifacts, and experiments securely stored in **AWS S3**.
+- **Scalable Cloud Deployment** — Hosted on **AWS EC2** for reliable, scalable performance.
+- **Multiple Deployment Options**:
+  - **FastAPI** with two routes: `/train` for model training and `/predict` for batch predictions.
+  - **Streamlit** for an interactive web interface enabling real-time predictions.
 
-- **Automated Model Retraining**  
-  Airflow DAGs are used to schedule retraining pipelines. This ensures that the model adapts to new data and evolving attack patterns over time.
+### CI/CD & Version Control
 
-- **Comprehensive Metrics Tracking**  
-  MLflow logs metrics such as Precision, Recall, and F1-score for each experiment. It also tracks model versions and artifacts, enabling reproducibility and comparison.
-
----
-
-## Infrastructure & Deployment
-
-- **Containerized with Docker**  
-  The entire application is containerized to eliminate environment inconsistencies and simplify deployment.
-
-- **Artifact & Model Storage**  
-  AWS S3 is used as a centralized storage system for datasets, trained models, preprocessing pipelines, and logs.
-
-- **Scalable Cloud Deployment on AWS EC2**  
-  The application is deployed on EC2 instances, allowing flexible scaling and reliable performance.
-
-- **Multiple Deployment Options**  
-  - FastAPI provides REST APIs for integration with other systems  
-  - Streamlit offers an interactive frontend for direct user interaction  
+- **Automated CI/CD Pipeline** via **GitHub Actions** integrating with **AWS ECR** and **EC2**:
+  - Builds and pushes Docker images to **Amazon ECR**.
+  - Pulls and deploys the image to **AWS EC2** automatically.
+- **Code Versioning** via **Git/GitHub** keeps the codebase always up-to-date.
+- **Data Versioning** with schema tracking and drift detection ensures data quality and model integrity over time.
 
 ---
 
-## CI/CD & Version Control
-
-- **Automated CI/CD Pipeline**  
-  GitHub Actions is used to automate the entire workflow:
-  - Code validation and testing  
-  - Docker image building  
-  - Image push to AWS ECR  
-  - Deployment to EC2  
-
-- **Version Control for Code and Data**  
-  - Git ensures proper versioning of code  
-  - Data validation and drift detection mechanisms ensure data consistency  
-  - The system is designed to handle evolving datasets without degrading performance  
-
----
-
-## Dataset and Features
+## Dataset & Features
 
 ### URL Features
 
-![URL Features](_assets/url_features.png)
-
-The dataset consists of 30 engineered features derived from URLs. These features capture structural, lexical, and behavioral characteristics that help distinguish malicious URLs from legitimate ones.
+The dataset contains **30 features** extracted from URLs to classify them as **Malicious**, **Suspicious**, or **Safe**.
 
 ### Key Features
 
-| Feature Name           | Description                                                            |
-|------------------------|------------------------------------------------------------------------|
-| `having_IP_Address`     | Identifies use of IP instead of domain name                            |
-| `URL_Length`            | Longer URLs often indicate obfuscation                                 |
-| `Shortening_Service`    | Detects shortened URLs (e.g., bit.ly)                                  |
-| `having_At_Symbol`      | Flags '@' usage which can redirect users                               |
-| `double_slash_redirecting` | Detects unusual redirection patterns                              |
+| Feature Name                | Description                                                       |
+|-----------------------------|-------------------------------------------------------------------|
+| `having_IP_Address`         | Checks if URL contains an IP address instead of a domain name     |
+| `URL_Length`                | Measures URL length; longer URLs often hide malicious content     |
+| `Shortening_Service`        | Detects use of URL shortening services like `bit.ly`              |
+| `having_At_Symbol`          | Flags presence of `@` in the URL                                  |
+| `double_slash_redirecting`  | Identifies multiple slashes after the protocol                    |
 
 <details>
-<summary>Click here to view all features</summary>
+<summary>View all 30 features</summary>
 
-(Keep your full table as it is)
+| Feature Name                  | Description                                    |
+|-------------------------------|------------------------------------------------|
+| `Prefix_Suffix`               | Checks for dashes in the domain                |
+| `having_Sub_Domain`           | Counts the number of subdomains                |
+| `SSLfinal_State`              | Analyzes the SSL certificate                   |
+| `Domain_registration_length`  | Measures domain registration duration          |
+| `Favicon`                     | Checks favicon source                          |
+| `port`                        | Detects unusual ports                          |
+| `HTTPS_token`                 | Flags `HTTPS` in the domain name               |
+| `Request_URL`                 | Checks resource loading domains                |
+| `URL_of_Anchor`               | Analyzes anchor tag destinations               |
+| `Links_in_tags`               | Measures links in HTML tags                    |
+| `SFH`                         | Checks form handler locations                  |
+| `Submitting_to_email`         | Flags form submission to email                 |
+| `Abnormal_URL`                | Identifies URL-domain mismatches               |
+| `Redirect`                    | Counts redirections                            |
+| `on_mouseover`                | Detects JavaScript hover events                |
+| `RightClick`                  | Identifies right-click disabling               |
+| `popUpWindow`                 | Flags popup windows                            |
+| `Iframe`                      | Detects invisible iframes                      |
+| `age_of_domain`               | Analyzes domain age                            |
+| `DNSRecord`                   | Checks DNS records                             |
+| `web_traffic`                 | Measures website traffic                       |
+| `Page_Rank`                   | Checks page rank                               |
+| `Google_Index`                | Identifies Google indexing status              |
+| `Links_pointing_to_page`      | Counts inbound links                           |
+| `Statistical_report`          | Flags reported suspicious activity             |
 
 </details>
 
@@ -141,64 +111,128 @@ The dataset consists of 30 engineered features derived from URLs. These features
 
 ## Components
 
-### 1. Frontend (Streamlit)
-The Streamlit application provides a clean and interactive interface for users to input URLs and receive predictions in real time. It is designed for simplicity and accessibility, making it easy for non-technical users to interact with the system.
+### 1. Frontend — Streamlit
+
+<img width="1920" height="1080" alt="Screenshot 2026-03-31 191346" src="https://github.com/user-attachments/assets/9a2b92e3-c9b3-42ba-b3f0-aa9b02860e34" />
+<img width="1920" height="1080" alt="Screenshot 2026-03-29 170654" src="https://github.com/user-attachments/assets/eb7333d8-5edc-49d4-8fc4-896085ffc258" />
+
+The Streamlit app provides an intuitive interface for predicting individual URLs as **Malicious**, **Suspicious**, or **Safe**.
+
+|------------|------------|
 
 ---
 
-### 2. Backend (FastAPI)
-FastAPI serves as the backbone of the application by exposing APIs for:
+### 2. Backend — FastAPI
 
-- **Training Endpoint (`/train`)**  
-  Triggers the model training pipeline manually or programmatically  
+FastAPI handles model operations including training and batch predictions.
 
-- **Prediction Endpoint (`/predict`)**  
-  Accepts CSV files and returns predictions for multiple URLs  
+- **`/train`** — Triggers the model training process.
+- **`/predict`** — Accepts CSV files for batch URL classification, returning results in JSON format.
 
-This separation of concerns ensures scalability and flexibility.
+|------|------------|
+
+**AWS S3 Buckets:**
+
+![Uploading Screenshot 2026-03-31 191346.png…]()
+
+![Uploading Screenshot 2026-03-31 191409.png…]()
+
+<img width="1920" height="1080" alt="Screenshot 2026-03-31 191425" src="https://github.com/user-attachments/assets/e145d43e-ab4a-4a1b-94d3-c5383d6eaa56" />
+
+
+- `networksecurity3` — Stores artifacts, `model.pkl`, and `preprocessor.pkl`.
+
+- `my-network-datasource-neeraj` — Stores CSV files uploaded via the `/predict` route.
 
 ---
 
 ### 3. MLOps Pipeline
 
 #### Data Ingestion
-- Fetches data from MongoDB  
-- Converts raw data into structured format  
-- Splits data into training and testing sets  
+- Fetches data from **MongoDB** and exports it to a feature store.
+- Splits data into training and testing sets with no data leakage.
 
 #### Data Validation
-- Validates schema and column consistency  
-- Detects missing or invalid values  
-- Performs statistical tests for data drift  
+- Validates schema to ensure all required columns are present.
+- Checks numerical columns for correctness and detects **data drift** using statistical tests.
+- Generates detailed drift reports for dataset consistency monitoring.
 
 #### Data Transformation
-- Applies preprocessing pipelines  
-- Handles missing values using KNNImputer  
-- Converts features into numerical format suitable for ML models  
+- Imputes missing values using a **KNNImputer**.
+- Prepares transformed **NumPy arrays** for model training.
+- Saves the transformation pipeline and preprocessing steps as **pickle artifacts**.
 
-#### Model Training and Evaluation
-- Trains multiple classification models  
-- Performs hyperparameter tuning using GridSearchCV  
-- Evaluates models using Precision, Recall, and F1-score  
-- Logs experiments in MLflow  
-- Saves the best-performing model and preprocessing pipeline  
+#### Model Training & Evaluation
+- Trains multiple classifiers: **Random Forest**, Gradient Boosting, Decision Tree, Logistic Regression, and AdaBoost.
+- Performs hyperparameter tuning via **GridSearchCV** for optimal performance.
+- Evaluates models on **Precision**, **Recall**, and **F1-score**, all tracked in **MLflow on AWS**.
+- Saves the best-performing model as a pickle file.
 
----
+|-------------|------------|
 
-### 4. CI/CD Pipeline with GitHub Actions
-
-The CI/CD pipeline ensures rapid and reliable delivery:
-
-- Uses EC2 as a self-hosted runner  
-- Automatically triggers workflows on code changes  
-- Builds and deploys Docker containers  
-- Reduces manual intervention and deployment errors  
+> MLflow experiments, models, and artifacts are stored in the `mlflowtrackingnetwork` S3 bucket.
 
 ---
 
-### 5. Docker Integration
+### 4. CI/CD Pipeline — GitHub Actions
 
-- Packages the entire application into Docker containers  
-- Ensures consistency across environments  
-- Simplifies deployment and scaling  
+Every code update triggers automated workflows for testing, building, and deploying the application.
 
+- **Self-Hosted Runner** on AWS EC2:
+
+|-------|------------|
+
+---
+
+### 5. Docker & AWS ECR
+
+The full application is containerized with Docker. Images are built, tagged, and stored in **Amazon ECR** for versioned and traceable deployments.
+
+---
+
+## How to Run the Project 🚀
+
+### Installation
+
+```bash
+git clone https://github.com/Neeraj876/network-security-system-mlops.git
+cd network-security-system-mlops
+pip install -r requirements.txt
+```
+
+### Local Setup
+
+**Launch the Streamlit App** (single URL prediction):
+```bash
+streamlit run streamlit.py
+```
+
+**Run the FastAPI Backend** (batch predictions):
+```bash
+uvicorn app:app --reload
+```
+
+### Deployment
+
+**Build and push Docker image to AWS ECR:**
+```bash
+docker build -t your-docker-image .
+docker tag your-docker-image:latest <AWS_ECR_URI>
+docker push <AWS_ECR_URI>
+```
+
+**Run the container on EC2:**
+```bash
+docker run -d -p 80:8080 your-docker-image
+```
+
+### Running Project Components
+
+1. **MLflow Setup** — Ensure MLflow is running on your AWS EC2 instance to track experiments and store artifacts in S3.
+2. **Data Ingestion** — Fetch data from MongoDB using the `data_ingestion` module.
+3. **Model Training** — Trigger training via the FastAPI `/train` endpoint.
+4. **Batch Prediction** — Upload a CSV via the FastAPI `/predict` route to receive JSON predictions.
+5. **Single Prediction** — Use the Streamlit app for real-time, single URL classification.
+6. **Monitoring** — Track all experiments, metrics, and logs through the MLflow UI.
+
+---
